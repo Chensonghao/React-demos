@@ -1,12 +1,8 @@
 var gulp = require("gulp");
-var browserify = require("browserify");
-var babelify = require("babelify");
-var source = require("vinyl-source-stream");
+var tasks = require('./Gulpfile.taskConfig');
 
-gulp.task('pk', function() {
-    return browserify('./js/app.js')
-        .transform("babelify", { presets: ["es2015", "react"] })
-        .bundle()
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest('js'));
-});
+for (var name in tasks) {
+    if (tasks.hasOwnProperty(name)) {
+        gulp.task(name, tasks[name]);
+    }
+}
