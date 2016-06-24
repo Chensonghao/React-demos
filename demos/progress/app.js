@@ -4,4 +4,5 @@
         ReactDOM = require('react-dom'),
         Progress = require('./components/Progress.jsx');
     ReactDOM.render( <Progress /> , document.getElementById('progress'));
+
 })();

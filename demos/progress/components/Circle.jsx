@@ -1,10 +1,9 @@
 var React=require('react'),
-	ReactDOM=require('react-dom'),
 	progress_dw=require('./progress_dw');
 
 var Circle = React.createClass({
 	componentDidMount:function(){
-		var circleDOM=ReactDOM.findDOMNode(this.refs.circle);
+		var circleDOM=this.refs.circle;
 		var pdw = new progress_dw(circleDOM);
 
 		var idx = 0;

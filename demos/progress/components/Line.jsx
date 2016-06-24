@@ -4,7 +4,7 @@ var React=require('react'),
 
 var Line = React.createClass({
 	componentDidMount:function(){
-		var lineDOM=ReactDOM.findDOMNode(this.refs.line);
+		var lineDOM=ReactDOM.findDOMNode(this);
 		var pdw = new progress_dw(lineDOM);
 
 		var idx = 0;
@@ -18,7 +18,7 @@ var Line = React.createClass({
 	},
     render: function() {
 	    return (
-	     <div ref="line" style={{width:'100%',height:'30px'}}></div>
+	     <div style={{width:'100%',height:'30px'}}></div>
 	    );
     }
 });
