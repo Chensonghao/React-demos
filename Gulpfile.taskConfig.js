@@ -17,5 +17,12 @@ module.exports = {
             .bundle()
             .pipe(source('bundle.js'))
             .pipe(gulp.dest('./demos/communication'));
+    },
+    cwrp: function() {
+        return browserify('./demos/componentWillReceiveProps/app.js')
+            .transform('babelify', { presets: ['es2015', 'react'] })
+            .bundle()
+            .pipe(source('bundle.js'))
+            .pipe(gulp.dest('./demos/componentWillReceiveProps'));
     }
 };

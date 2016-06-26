@@ -1,8 +1,12 @@
 var gulp = require("gulp");
-var tasks = require('./Gulpfile.taskConfig');
-
-for (var name in tasks) {
-    if (tasks.hasOwnProperty(name)) {
-        gulp.task(name, tasks[name]);
+var tasksObj = require('./Gulpfile.taskConfig');
+var tasks = [];
+for (var name in tasksObj) {
+    if (tasksObj.hasOwnProperty(name)) {
+        tasks.push(name);
+        gulp.task(name, tasksObj[name]);
     }
 }
+gulp.task('all', function() {
+    gulp.run(tasks);
+});
