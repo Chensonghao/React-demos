@@ -8,11 +8,28 @@ var React = require('react'),
 var Child1 = React.createClass({
 	displayName: 'Child1',
 
+	//createClass时执行的，初始化props
+	getDefaultProps: function getDefaultProps() {
+		return {
+			title: 'react test'
+		};
+	},
 	getInitialState: function getInitialState() {
 		return {
 			checked: this.props.checked
 		};
 	},
+	componentWillMount: function componentWillMount() {},
+	render: function render() {
+		return React.createElement(
+			'div',
+			null,
+			'子组件1',
+			React.createElement('input', { type: 'checkbox', checked: this.state.checked }),
+			this.state.checked ? '选中' : '未选中'
+		);
+	},
+	componentDidMount: function componentDidMount() {},
 	//render之前触发
 	componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 		if (nextProps.checked !== undefined) {
@@ -25,15 +42,11 @@ var Child1 = React.createClass({
 		//确保组件不需要渲染新的props或者state则return false
 		return nextProps.checked !== this.props.checked;
 	},
-	render: function render() {
-		return React.createElement(
-			'div',
-			null,
-			'子组件1',
-			React.createElement('input', { type: 'checkbox', checked: this.state.checked }),
-			this.state.checked ? '选中' : '未选中'
-		);
-	}
+	componentWillUpdate: function componentWillUpdate() {},
+	//render后
+	componentDidUpdate: function componentDidUpdate() {},
+	//组件被移除之前调用
+	componentWillUnmount: function componentWillUnmount() {}
 });
 var Child2 = React.createClass({
 	displayName: 'Child2',

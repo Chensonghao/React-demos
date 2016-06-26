@@ -3,10 +3,25 @@ var React = require('react'),
     PureRenderMixin = require('react-addons-pure-render-mixin');
 
 var Child1 = React.createClass({
+	//createClass时执行的，初始化props
+	getDefaultProps:function() {
+	    return {
+	          title:'react test'
+	    };
+	},
 	getInitialState:function() {
 	    return {
 	          checked:this.props.checked
 	    };
+	},
+	componentWillMount:function(){
+
+	},
+	render: function() {
+    	return ( <div>子组件1<input type="checkbox" checked={this.state.checked}/>{this.state.checked?'选中':'未选中'}</div> );
+    },
+    componentDidMount:function(){
+
 	},
 	//render之前触发
 	componentWillReceiveProps: function(nextProps) {
@@ -20,9 +35,17 @@ var Child1 = React.createClass({
 		//确保组件不需要渲染新的props或者state则return false
 		return nextProps.checked!==this.props.checked;
 	},
-    render: function() {
-    	return ( <div>子组件1<input type="checkbox" checked={this.state.checked}/>{this.state.checked?'选中':'未选中'}</div> );
-    }
+	componentWillUpdate:function(){
+
+	},
+	//render后
+	componentDidUpdate:function(){
+
+	},
+	//组件被移除之前调用
+	componentWillUnmount:function(){
+
+	},
 });
 var Child2=React.createClass({
 	// shouldComponentUpdate:function(nextProps, nextState){
