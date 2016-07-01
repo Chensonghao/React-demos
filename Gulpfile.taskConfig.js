@@ -24,5 +24,12 @@ module.exports = {
             .bundle()
             .pipe(source('bundle.js'))
             .pipe(gulp.dest('./demos/lifeCycle'));
+    },
+    choices: function() {
+        return browserify('./demos/choices/app.js')
+            .transform('babelify', { presets: ['es2015', 'react'] })
+            .bundle()
+            .pipe(source('bundle.js'))
+            .pipe(gulp.dest('./demos/choices'));
     }
 };
