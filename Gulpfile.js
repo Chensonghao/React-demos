@@ -7,6 +7,7 @@ for (var name in tasksObj) {
         gulp.task(name, tasksObj[name]);
     }
 }
+/*run all task*/
 gulp.task('all', function() {
     gulp.run(tasks);
 });
