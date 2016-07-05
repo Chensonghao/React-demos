@@ -8,6 +8,7 @@
         init: function() {
             var container = this.container;
             var dpr = window.devicePixelRatio || 1;
+            this.dpr = dpr;
             this.width = container.offsetWidth * dpr;
             this.height = (container.offsetHeight < 20 ? 20 : container.offsetHeight) * dpr;
             this.r = Math.min(this.width, this.height) * 2 / 5;
@@ -49,8 +50,8 @@
         lineProgress: function(percent) {
             var context = this.context;
 
-            var fontSize = this.height / 3;
-            context.font = (fontSize < 30 ? 30 : fontSize) + 'px "楷体"';
+            var fontSize = this.height / 6;
+            context.font = ((fontSize < 15 ? 15 : fontSize) * this.dpr) + 'px "楷体"';
             var txtWidth = context.measureText('100%').width;
 
             var lineWidth = this.height / 5,

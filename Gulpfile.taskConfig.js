@@ -31,5 +31,12 @@ module.exports = {
             .bundle()
             .pipe(source('bundle.js'))
             .pipe(gulp.dest('./demos/choices'));
+    },
+    mixins: function() {
+        return browserify('./demos/mixins/app.js')
+            .transform('babelify', { presets: ['es2015', 'react'] })
+            .bundle()
+            .pipe(source('bundle.js'))
+            .pipe(gulp.dest('./demos/mixins'));
     }
 };
