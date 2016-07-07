@@ -38,5 +38,19 @@ module.exports = {
             .bundle()
             .pipe(source('bundle.js'))
             .pipe(gulp.dest('./demos/mixins'));
+    },
+    form: function() {
+        return browserify('./demos/form/app.js')
+            .transform('babelify', { presets: ['es2015', 'react'] })
+            .bundle()
+            .pipe(source('bundle.js'))
+            .pipe(gulp.dest('./demos/form'));
+    },
+    animation: function() {
+        return browserify('./demos/animation/app.js')
+            .transform('babelify', { presets: ['es2015', 'react'] })
+            .bundle()
+            .pipe(source('bundle.js'))
+            .pipe(gulp.dest('./demos/animation'));
     }
 };

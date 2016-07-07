@@ -3,7 +3,6 @@ var React = require('react'),
 var util = require('lodash/util'),
     uniqueId = util.uniqueId;
 
-
 var Choice = React.createClass({
     propTypes: {
         id: React.PropTypes.string,
@@ -14,10 +13,7 @@ var Choice = React.createClass({
         onChanged: React.PropTypes.func.isRequired
     },
     getDefaultProps: function() {
-        return {
-            checked: false,
-            id: uniqueId('choice-')
-        };
+        return {checked: false, id: uniqueId('choice-')};
     },
     getInitialState: function() {
         return {
@@ -40,12 +36,7 @@ var Choice = React.createClass({
         return (
             <div>
                 <label>
-                    <input type="radio"
-                        name={this.props.name}
-                        id={this.props.id}
-                        value={this.props.value}
-                        checked={this.state.checked}
-                        onChange={this.handleChanged}/> {this.props.label}
+                    <input type="radio" name={this.props.name} id={this.props.id} value={this.props.value} checked={this.state.checked} onChange={this.handleChanged}/> {this.props.label}
                 </label>
             </div>
         );
@@ -54,30 +45,19 @@ var Choice = React.createClass({
 var Choices = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
-        choices: React.PropTypes.array.isRequired,
-        onCompleted: React.PropTypes.func.isRequired
+        choices: React.PropTypes.array.isRequired
     },
     getInitialState: function() {
-        return {
-            id: uniqueId('Choices-'),
-            value:this.props.value
-        }
+        return {id: uniqueId('Choices-'), value: this.props.value}
     },
-    handleChanged:function(value){
-        this.setState({
-            value:value
-        });
-        this.props.onCompleted(value);
+    handleChanged: function(value) {
+        this.setState({value: value});
+        console.log(value);
     },
     renderChoices: function() {
         return this.props.choices.map(function(choice, i) {
-            var key='choice' + i;
-            return <Choice key={key} id={key}
-                name={this.state.id}
-                label={choice}
-                value={choice}
-                checked={this.state.value===choice}
-                onChanged={this.handleChanged}/>
+            var key = 'choice' + i;
+            return <Choice key={key} id={key} name={this.state.id} label={choice} value={choice} checked={this.state.value === choice} onChanged={this.handleChanged}/>
         }.bind(this));
     },
     render: function() {
@@ -88,9 +68,47 @@ var Choices = React.createClass({
         );
     }
 });
+var Radio = React.createClass({
+    propTypes: {
+        onChange: React.PropTypes.func
+    },
+    getInitialState: function() {
+        return {value: this.props.defaultValue};
+    },
+    handleChange: function(e) {
+        if (this.props.onChange) {
+            this.props.onChange(e);
+        }
+        this.setState({value: e.target.value});
+    },
+    render: function() {
+        var children = [];
+        var value = this.props.value || this.state.value;
+        React.Children.forEach(this.props.children, function(child, i) {
+            var label=(
+                <label key={i}>
+                    <input type="radio"
+                           name={this.props.name}
+                           value={child.props.value}
+                           checked={child.props.value===value}
+                           onChange={this.handleChange}/>
+                       {child.props.children}
+                       <br/>
+                </label>
+            );
+            children.push(label);
+        }.bind(this));
+        return (<span>{children}</span>);
+    }
+});
 
 var items = ['A', 'B', 'C', 'D'];
-function qwe(a){
-    console.log(a);
-}
-ReactDOM.render(<Choices choices={items} value='' onCompleted={qwe}/>, document.getElementById('choices'));
+ReactDOM.render(<div>
+    <Choices choices={items} value=''/>
+    <Radio defaultValue="B">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+    </Radio>
+    </div>, document.getElementById('choices'));
