@@ -1,5 +1,6 @@
 var React = require('react'),
-    ReactDOM = require('react-dom');
+    ReactDOM = require('react-dom'),
+    Immutable = require('immutable');
 var util = require('lodash/util'),
     uniqueId = util.uniqueId;
 
@@ -85,25 +86,23 @@ var Radio = React.createClass({
         var children = [];
         var value = this.props.value || this.state.value;
         React.Children.forEach(this.props.children, function(child, i) {
-            var label=(
+            var label = (
                 <label key={i}>
-                    <input type="radio"
-                           name={this.props.name}
-                           value={child.props.value}
-                           checked={child.props.value===value}
-                           onChange={this.handleChange}/>
-                       {child.props.children}
-                       <br/>
+                    <input type="radio" name={this.props.name} value={child.props.value} checked={child.props.value === value} onChange={this.handleChange}/> {child.props.children}
+                    <br/>
                 </label>
             );
             children.push(label);
         }.bind(this));
-        return (<span>{children}</span>);
+        return (
+            <span>{children}</span>
+        );
     }
 });
 
 var items = ['A', 'B', 'C', 'D'];
-ReactDOM.render(<div>
+ReactDOM.render(
+    <div>
     <Choices choices={items} value=''/>
     <Radio defaultValue="B">
         <option value="A">A</option>
@@ -111,4 +110,4 @@ ReactDOM.render(<div>
         <option value="C">C</option>
         <option value="D">D</option>
     </Radio>
-    </div>, document.getElementById('choices'));
+</div>, document.getElementById('choices'));

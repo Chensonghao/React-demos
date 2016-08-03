@@ -5,37 +5,51 @@ var React = require('react'),
 var Child1 = React.createClass({
     //createClass时执行的，初始化props
     getDefaultProps: function() {
+        console.log('getDefaultProps');
         return {title: 'react test'};
     },
     getInitialState: function() {
+        console.log('getInitialState');
         return {checked: this.props.checked};
     },
     componentWillMount: function() {
+        console.log('componentWillMount');
         console.log(this.props);
     },
     render: function() {
+        console.log('render');
         return (
           <div>子组件1<input type="checkbox" checked={this.state.checked}/>
             {this.state.checked ? '选中' : '未选中'}
           </div>
         );
     },
-    componentDidMount: function() {},
+    componentDidMount: function() {
+        console.log('componentDidMount');
+    },
     //render之前触发
     componentWillReceiveProps: function(nextProps) {
+        console.log('componentWillReceiveProps');
         if (nextProps.checked !== undefined) {
             this.setState({checked: nextProps.checked});
         }
     },
     shouldComponentUpdate: function(nextProps, nextState) {
+        console.log('shouldComponentUpdate');
         //确保组件不需要渲染新的props或者state则return false
         return nextProps.checked !== this.props.checked;
     },
-    componentWillUpdate: function() {},
+    componentWillUpdate: function() {
+        console.log('componentWillUpdate');
+    },
     //render后
-    componentDidUpdate: function() {},
+    componentDidUpdate: function() {
+        console.log('componentDidUpdate');
+    },
     //组件被移除之前调用
-    componentWillUnmount: function() {}
+    componentWillUnmount: function() {
+        console.log('componentWillUnmount');
+    }
 });
 var Child2 = React.createClass({
     shouldComponentUpdate: function(nextProps, nextState) {
